@@ -54,7 +54,7 @@ class OverExtendsNode(ExtendsNode):
         except AttributeError:
             # Django <= 1.7
             app_template_dirs = app_directories.app_template_dirs
-        
+
         # Find the find_template_loader function (it moved in Django 1.8)
         try:
             # Django >= 1.8
@@ -62,7 +62,7 @@ class OverExtendsNode(ExtendsNode):
         except AttributeError:
             # Django <= 1.7
             from django.template.loader import find_template_loader
-        
+
         # Store a dictionary in the template context mapping template
         # names to the lists of template directories available to
         # search for that template. Each time a template is loaded, its
@@ -101,8 +101,7 @@ class OverExtendsNode(ExtendsNode):
                 # get_parent, and not when we're peeking during the
                 # second call.
                 if not peeking:
-                    remove_path = os.path.abspath(path[:-len(name) - 1])
-                    context[context_name][name].remove(remove_path)
+                    del(context[context_name][name][0])
                 return Template(source)
         raise TemplateDoesNotExist(name)
 
